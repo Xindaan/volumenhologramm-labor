@@ -112,6 +112,6 @@ Bewusst nicht enthalten: Materialchemie, reale Fertigung, Absorption, Dispersion
 | `scripts/package_release.py` | Versioniertes ZIP mit Dateimanifest und SHA-256-Prüfsummen |
 | `tests/test_distribution.py` | Prüfung des tatsächlich entpackten Weitergabepakets |
 
-Abhängigkeiten: Three.js 0.180.0, Vite 7.1.5. Die Modelltests selbst nutzen ausschließlich Node.js-Bordmittel; Starter und Pakettests ausschließlich die Python-Standardbibliothek. Der Lizenzhinweis für das mitgelieferte Three.js liegt unter [public/THIRD_PARTY_NOTICES.txt](public/THIRD_PARTY_NOTICES.txt).
+Abhängigkeiten: Three.js 0.180.0, Vite 7.3.6. Die Modelltests selbst nutzen ausschließlich Node.js-Bordmittel; Starter und Pakettests ausschließlich die Python-Standardbibliothek. Der Lizenzhinweis für das mitgelieferte Three.js liegt unter [public/THIRD_PARTY_NOTICES.txt](public/THIRD_PARTY_NOTICES.txt).
 
 Das Release-ZIP enthält den Browser-Build, Starter, Anleitungen, Modelldokumentation, ein Vorschaubild und `SHA256SUMS.txt`. Zusätzlich wird eine Prüfsumme des gesamten ZIPs veröffentlicht. Für Änderungen am Modell oder an der Oberfläche den Quellcode aus diesem Repository verwenden.

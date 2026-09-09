@@ -47,6 +47,8 @@ Mit dem lokalen Python-Starter über HTTP und dem In-App-Browser geprüft. Numer
 - Bestehendes Wellen-/Gitterlabor erneut aufgezeichnet und gelesen: passender ebener Fall weiterhin η = 100 %, keine Konsolenfehler.
 - Browserkonsole des Objektlabors im abschließenden Durchlauf ohne Fehler oder Warnungen. Syntaxprüfung, Produktionsbuild, alle 32 Modelltests und die vier Prüfungen des entpackten Weitergabepakets bestanden.
 
+- Nach den konkreten GitHub-Advisories Vite von 7.1.5 auf 7.3.6 aktualisiert; npm meldet anschließend 0 bekannte Abhängigkeitslücken. Die wissenschaftlichen Modellmodule bleiben dabei unverändert.
+
 Belegbilder: [3D-Vergleichsszene](../screenshots/04-tor-szene.jpg), [numerische Rekonstruktion und Scanner](../screenshots/02-tor-rekonstruktion.jpg). Die Originalgeometrie ist im Szenenbild ausschließlich im ausdrücklich beschrifteten Vergleich eingeblendet.
 
 Die vollständigen Gleichungen und Näherungen stehen in [OBJECT_MODEL.md](OBJECT_MODEL.md). Die Paketprüfung `npm run test:package` kontrolliert beide HTML-Einstiegspunkte, beide Rechen-Worker, alle ausgelieferten Assets und die Prüfsummen im tatsächlich entpackten ZIP.
