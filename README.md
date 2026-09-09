@@ -1,12 +1,12 @@
 # Volumenhologramm-Labor – Licht schreibt Licht in Materie
 
-Lokale interaktive Browser-Anwendung für Aufzeichnung, Volumengitter und Bragg-selektive Rekonstruktion. Keine externe API, keine Cloud, keine nachgeladenen Schriftarten oder Medien. Modell und numerische Rekonstruktion laufen im Browser; die Born-Rechnung in einem Web Worker.
+Lokale interaktive Browser-Anwendung für Aufzeichnung, Volumengitter und Bragg-selektive Rekonstruktion. **Neu in 1.1: vom räumlichen Brandenburger Tor über das kohärente Objektfeld zum fokussierbaren Hologrammbild.** Keine externe API, keine Cloud, keine nachgeladenen Schriftarten oder Medien. Modell und numerische Rekonstruktion laufen im Browser; die Born-Rechnung in einem Web Worker.
 
 ![Interferenzstruktur im transparenten Volumen](screenshots/01-aufzeichnung.png)
 
 ## Herunterladen und starten
 
-**Zum Ausprobieren:** Unter [Releases](https://github.com/Xindaan/volumenhologramm-labor/releases/latest) das fertige **`volumenhologramm-labor-v1.0.0.zip`** laden und vollständig entpacken. Benötigt werden nur **Python 3.9 oder neuer** und ein Browser mit WebGL 2.
+**Zum Ausprobieren:** Unter [Releases](https://github.com/Xindaan/volumenhologramm-labor/releases/latest) das fertige **`volumenhologramm-labor-v1.1.0.zip`** laden und vollständig entpacken. Benötigt werden nur **Python 3.9 oder neuer** und ein Browser mit WebGL 2.
 
 - **Windows:** `Start-Windows.cmd` öffnen.
 - **macOS:** `Start-macOS.command` öffnen; alternativ im Paketordner `python3 start.py` ausführen.
@@ -42,6 +42,25 @@ Die fertige `dist/`-Anwendung kann auch von einem anderen lokalen HTTP-Server au
 
 ## Ein Versuch in zwei Minuten
 
+### Neues 3D-Objektlabor
+
+Oben **3D-Objekt** wählen oder **http://127.0.0.1:5197/object.html** öffnen. Der Prozessregler führt durch Objekt → Objektwelle → Referenz → Interferenz → Belichtung → Rekonstruktion.
+
+1. Säulen, Gebälk und Quadriga einzeln schalten. Das komplexe Objektfeld sowie sein Amplituden-/Phasenbild werden aus den sichtbaren Oberflächen neu berechnet. LIVE verwendet beim Standardtor **1.422 Streuelemente und 256² komplexe Feldsamples**.
+2. Im **Hologramm-Scanner** hineinzoomen, schneiden und drehen. Ein Klick zeigt lokale k-Komponenten; **k-Raum** berechnet das Spektrum des aktuellen Schnitts.
+3. **Hologramm belichten**. Die Objektwelle wird abgeschaltet. Das optische Bild entsteht aus einem unabhängigen Index-Snapshot; der Rekonstruktionskern hat keinen Zugriff auf Mesh oder Streuerliste.
+4. **Säulen fokussieren** und **Quadriga fokussieren** vergleichen. Die Bildebene wird numerisch durch die rekonstruierte Welle bewegt. **Originalgeometrie zum Vergleich** blendet das Mesh ausdrücklich separat ein.
+5. Winkel um +2° ändern: beim Standardversuch sinkt η von etwa 0,1090 % auf 0,0104 %. **Aufzeichnungsgeometrie treffen** setzt die Lesewelle zurück. Wellenlänge, Dicke, Apertur und seitliche Beobachterpupille wirken ebenfalls auf die Wellenrechnung.
+6. **Linke Hälfte** abdecken: große Teile des ganzen Tors bleiben sichtbar. **Zwei Tiefen: Parallaxe ausprobieren** bietet einen einfachen Kontrollversuch. **Zerlege das Tor** vergleicht kohärente gemeinsame Aufnahmen mit addierten Einzelintensitäten.
+
+HIGH QUALITY und FINAL verfeinern Feldraster bzw. Oberflächenquadratur; die aktuelle Zahl steht in der Szene. Ein lokales statisches OBJ, GLTF oder GLB lässt sich in der linken Leiste laden. Zugehörige Dateien gemeinsam auswählen; Materialien und Texturen sind keine Streuparameter. Reset stellt das Tor wieder her. Der Index-Snapshot dieses Modus bleibt bis zum Neuladen im Arbeitsspeicher und kann als JSON exportiert werden.
+
+Das Modell ist eine **bandbegrenzte skalare Weyl-Streusumme mit spektraler erster Born-Rekonstruktion der positiven Ordnung**. Es verwendet ausdrücklich eine ideal kompensierte Indexaufzeichnung und eine Maske auf der Austrittsfläche. Die Bildansicht ist ein numerisch refokussiertes virtuelles Bild. Details und Grenzen: [Objektmodell](docs/OBJECT_MODEL.md), [Abnahmetests](docs/OBJECT_TESTS.md).
+
+![Numerische Rekonstruktion des Brandenburger Tors](screenshots/02-tor-rekonstruktion.jpg)
+
+### Bisheriges Wellen- und Gitterlabor
+
 1. Im Ausgangszustand schneiden sich ebene Aufzeichnungswellen bei internen Winkeln −24° und +24°, λ₀ = 532 nm, n = 1,5. Das 40 µm dicke Volumen enthält Fringen mit Λ ≈ 0,436 µm.
 2. Volumen durch Ziehen drehen, am Mausrad zoomen. Alternativ das fokussierte 3D-Canvas mit Pfeiltasten drehen. xz-, xy- oder yz-Schnitt wählen, verschieben und das Volumen am Schnitt öffnen.
 3. **Struktur aufzeichnen**, dann **Hologramm lesen**. Die Objektwelle ist aus. Das gespeicherte Gitter rekonstruiert bei passender Beleuchtung die ebene Objektwelle.
@@ -56,14 +75,16 @@ Auf schmalen Bildschirmen öffnet **Parameter öffnen** die Einstellungen. Die M
 
 ## Aufzeichnung und Daten
 
-Aufgezeichnet wird eine unabhängige Kopie der analytischen Feldparameter einschließlich Belichtungszeit, Dosis und Index. Das speichert die gesamte räumliche Funktion statt eines groben Voxelbildes. Änderungen an den Aufzeichnungswellen überschreiben diesen Snapshot erst bei erneuter Aufzeichnung. d und Δn bleiben bewusst als Parameterexperimente veränderbar.
+Im Wellen-/Gitterlabor wird eine unabhängige Kopie der analytischen Feldparameter einschließlich Belichtungszeit, Dosis und Index aufgezeichnet. Das speichert die gesamte räumliche Funktion statt eines groben Voxelbildes. Änderungen an den Aufzeichnungswellen überschreiben diesen Snapshot erst bei erneuter Aufzeichnung. d und Δn bleiben bewusst als Parameterexperimente veränderbar. Das neue Objektlabor speichert stattdessen komplexe Index-Seitenbandkoeffizienten; seine gesonderte Näherung ist oben verlinkt.
 
-Ein Snapshot wird zusätzlich unter einem anwendungsspezifischen Schlüssel in der lokalen Browserablage gespeichert und beim Neuladen wiederhergestellt. Im Speicherschritt kann er als JSON exportiert werden. Reset setzt den Versuch zurück und entfernt ausschließlich diesen Anwendungssnapshot. Es gibt keine Übertragung an einen Server.
+Im Wellen-/Gitterlabor wird der Snapshot zusätzlich unter einem anwendungsspezifischen Schlüssel in der lokalen Browserablage gespeichert und beim Neuladen wiederhergestellt. Im Speicherschritt kann er als JSON exportiert werden. Reset setzt den Versuch zurück und entfernt ausschließlich diesen Anwendungssnapshot. Es gibt keine Übertragung an einen Server.
 
 ## Physikalische Dokumentation und Abnahme
 
 - [Modellgleichungen und Näherungen](docs/MODEL.md)
 - [Testfälle, erwartete Resultate und Browserprüfung](docs/TESTS.md)
+- [3D-Objektfeld, Indexaufzeichnung und spektrale Born-Rekonstruktion](docs/OBJECT_MODEL.md)
+- [Zehn Abnahmekriterien des Objektlabors und Konvergenz](docs/OBJECT_TESTS.md)
 - Vollständige ausführbare Tests: [Modelltests im Quellcode](https://github.com/Xindaan/volumenhologramm-labor/blob/main/tests/model.test.mjs)
 - Direkt in der Anwendung: **Modell & Grenzen**
 
@@ -81,6 +102,12 @@ Bewusst nicht enthalten: Materialchemie, reale Fertigung, Absorption, Dispersion
 | `src/charts.js` | Analytische Schnittansicht, Scans, Austrittsfeld und k-Diagramm |
 | `src/main.js` | Gemeinsamer Modellzustand, Bedienelemente und lokale Speicherung |
 | `src/documentation.js` | Vollständige eingebettete Modelldokumentation |
+| `src/object/geometry.mjs` | Tor-Mesh, Gruppen, orthografische Sichtbarkeit und Flächenquadratur |
+| `src/object/waves.mjs` | Kohärente Weyl-Streusumme, komplexe Spektren und Angular-Spectrum-Propagation |
+| `src/object/reconstruction.mjs` | Unabhängige Indexaufzeichnung, Born-Volumenintegral, Pupille, Refokussierung; ohne Geometriezugriff |
+| `src/object/inspection.mjs` | Räumlicher Scanner, lokale Fenster-FFT und Volumenselektivität |
+| `src/object/labor-worker.js` | Abbrechbare numerische Arbeitsaufträge |
+| `object.html`, `src/object/main.js`, `src/object/scene.js` | Objektlabor, Prozessablauf und 3D-Vorschau |
 | `start.py`, `Start-*` | Lokaler HTTP-Server und Starter für das fertige Paket |
 | `scripts/package_release.py` | Versioniertes ZIP mit Dateimanifest und SHA-256-Prüfsummen |
 | `tests/test_distribution.py` | Prüfung des tatsächlich entpackten Weitergabepakets |

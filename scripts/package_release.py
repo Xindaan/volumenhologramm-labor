@@ -13,6 +13,7 @@ FILES = [
     "README.md", "INSTALLATION.md", "start.py", "Start-macOS.command",
     "Start-Windows.cmd", "Start-Linux.sh", "docs/MODEL.md", "docs/TESTS.md",
     "public/THIRD_PARTY_NOTICES.txt", "screenshots/01-aufzeichnung.png",
+    "docs/OBJECT_MODEL.md", "docs/OBJECT_TESTS.md", "screenshots/02-tor-rekonstruktion.jpg", "screenshots/04-tor-szene.jpg",
 ]
 
 

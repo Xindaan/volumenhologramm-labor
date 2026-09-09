@@ -1,20 +1,27 @@
 {
   "name": "volumenhologramm-labor",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "description": "Lokales interaktives Physiklabor für Volumenhologramme, Interferenz und Bragg-Selektivität.",
-  "engines": { "node": ">=22.12.0" },
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 5197 --strictPort",
     "start": "npm run dev",
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1 --port 5197 --strictPort",
-    "test": "node --test tests/model.test.mjs",
-    "check": "node --check src/main.js && node --check src/volume.js && node --check src/charts.js && node --check src/born-worker.js",
+    "test": "node --test tests/model.test.mjs tests/object.test.mjs tests/inspection.test.mjs",
+    "test:object": "node --test tests/object.test.mjs tests/inspection.test.mjs",
+    "check": "node --check src/main.js && node --check src/volume.js && node --check src/charts.js && node --check src/born-worker.js && node --check src/object/main.js && node --check src/object/scene.js && node --check src/object/labor-worker.js && node --check src/object/inspection.mjs && node --check src/object/draw.mjs",
     "package": "npm run check && npm test && npm run build && python3 scripts/package_release.py",
     "test:package": "python3 -m unittest discover -s tests -p \"test_*.py\" -v"
   },
-  "dependencies": { "three": "0.180.0" },
-  "devDependencies": { "vite": "7.1.5" }
+  "dependencies": {
+    "three": "0.180.0"
+  },
+  "devDependencies": {
+    "vite": "7.1.5"
+  }
 }

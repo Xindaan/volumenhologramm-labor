@@ -43,7 +43,11 @@ class DistributionTests(unittest.TestCase):
             names = archive.namelist()
             self.assertFalse(any(x in name for name in names for x in ["node_modules", ".DS_Store", "codex_learning_log", ".env", "../"]))
             self.assertTrue(any(name.endswith("dist/index.html") for name in names))
+            self.assertTrue(any(name.endswith("dist/object.html") for name in names))
             self.assertTrue(any("born-worker-" in name for name in names))
+            self.assertTrue(any("labor-worker-" in name for name in names))
+            self.assertTrue(any(name.endswith("docs/OBJECT_MODEL.md") for name in names))
+            self.assertTrue(any(name.endswith("docs/OBJECT_TESTS.md") for name in names))
             self.assertTrue(any(name.endswith("THIRD_PARTY_NOTICES.txt") for name in names))
             for info in archive.infolist():
                 if info.filename.endswith((".command", ".sh")):

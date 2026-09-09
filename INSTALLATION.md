@@ -4,7 +4,7 @@
 
 Benötigt werden ein aktueller Browser mit WebGL 2 und **Python 3.9 oder neuer**. Node.js, npm, ein GitHub-Konto und eine Internetverbindung während der Nutzung sind nicht erforderlich.
 
-1. Unter [GitHub Releases](https://github.com/Xindaan/volumenhologramm-labor/releases/latest) das Paket **`volumenhologramm-labor-v1.0.0.zip`** herunterladen. Die automatisch von GitHub angebotenen Dateien „Source code“ enthalten dagegen den Quellcode.
+1. Unter [GitHub Releases](https://github.com/Xindaan/volumenhologramm-labor/releases/latest) das Paket **`volumenhologramm-labor-v1.1.0.zip`** herunterladen. Die automatisch von GitHub angebotenen Dateien „Source code“ enthalten dagegen den Quellcode.
 2. Das ZIP **vollständig entpacken**. Alle Dateien und der Ordner `dist` müssen zusammenbleiben. Nichts direkt aus der ZIP-Vorschau starten.
 3. Falls Python noch fehlt, Python 3 von [python.org](https://www.python.org/downloads/) installieren. Unter Windows die Option zum Hinzufügen zu PATH aktivieren, sofern angeboten.
 4. Den passenden Startweg verwenden:
@@ -24,6 +24,8 @@ Falls macOS das heruntergeladene `.command`-Skript nicht direkt öffnet, funktio
 `start.py` ist ein kleiner Server aus der Python-Standardbibliothek. Er liest nur die fertig gebaute Anwendung in `dist/`, bindet ausschließlich an `127.0.0.1` und macht keine ausgehenden Netzwerkabfragen. JavaScript-Module und der Rechen-Worker benötigen einen HTTP-Ursprung: **`index.html` per Doppelklick (`file://`) ist kein unterstützter Startweg.**
 
 Die Oberfläche, die 3D-Bibliothek und die Modellrechnung liegen vollständig im Paket. Python dient nur zum lokalen Ausliefern der Dateien. Die numerische Rechnung läuft im Browser.
+
+**Zwei Labormodi:** `index.html` enthält das Wellen-/Gitterlabor; über **3D-Objekt** bzw. `http://127.0.0.1:5197/object.html` öffnet sich das neue Objektlabor. Beide gehören zum selben Paket. Für dessen HIGH-/FINAL-Rechnungen einige Sekunden bis mehrere zehn Sekunden einplanen, abhängig vom Rechner und Modell. LIVE startet automatisch. Nur das ursprüngliche Wellenlabor stellt den Snapshot nach Neuladen wieder her; das Objektlabor speichert ihn im Arbeitsspeicher der Sitzung.
 
 ### Häufige Startprobleme
 
