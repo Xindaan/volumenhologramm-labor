@@ -1,0 +1,13 @@
+node_modules/
+dist/
+artifacts/
+.test-tmp/
+.npm-cache/
+__pycache__/
+*.pyc
+.DS_Store
+*.zip
+docs/codex_learning_log.md
+.env
+.env.*
+!.env.example

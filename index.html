@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080d12" />
+  <meta name="description" content="Ein interaktives lokales Physiklabor für Interferenz, Volumengitter und Bragg-Selektivität." />
+  <title>Volumenhologramm-Labor – Licht schreibt Licht in Materie</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Volumenhologramm Labor Start"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M7 10 20 3l13 7v20l-13 7-13-7Z M7 10l13 8 13-8M20 18v19M12 7v20l13 8M17 4v20l13 8"/></svg><span>VOLUMENHOLOGRAMM<span class="brand-sub">LABOR FÜR LICHT & MATERIE</span></span></a>
+    <div class="header-actions">
+      <div class="segmented mode-control" aria-label="Darstellungsmodus"><button id="intuitive" class="active" aria-pressed="true">Intuitiv</button><button id="physicist" aria-pressed="false">Physiker</button></div>
+      <button class="text-button" id="method">Modell & Grenzen <span>↗</span></button>
+      <button class="icon-button" id="reset" aria-label="Experiment zurücksetzen" title="Experiment zurücksetzen">↺</button>
+    </div>
+  </header>
+  <main>
+    <section class="intro">
+      <div><p class="eyebrow"><span class="live-dot"></span> INTERAKTIVE PHOTONIK <span class="eyebrow-separator">/</span> EXPERIMENT 01</p><h1>Licht schreibt Licht <em>in Materie.</em></h1></div>
+      <p class="intro-copy">Zwei Wellen hinterlassen eine räumliche Spur.<br>Die passende Welle macht sie wieder lesbar.</p>
+    </section>
+    <nav class="stage-nav" aria-label="Experimentphase">
+      <button class="stage active" id="stage-recording" aria-pressed="true"><span class="step-number">01</span><span>Interferenz erzeugen<small>Zwei Wellen im Volumen</small></span></button>
+      <span class="stage-arrow" aria-hidden="true">→</span>
+      <button class="stage" id="stage-stored" aria-pressed="false"><span class="step-number">02</span><span>Struktur speichern<small>Licht wird Indexmodulation</small></span></button>
+      <span class="stage-arrow" aria-hidden="true">→</span>
+      <button class="stage" id="stage-reconstruction" aria-pressed="false"><span class="step-number">03</span><span>Hologramm lesen<small>Die Bragg-Bedingung finden</small></span></button>
+      <span class="local-badge"><span></span> LOKAL · OHNE CLOUD</span>
+    </nav>
+    <div class="lab-layout">
+      <aside class="controls panel">
+        <div class="panel-heading"><span class="eyebrow">VERSUCHSAUFBAU</span><span class="tiny-label" id="setup-state">LIVE</span><button id="mobile-controls" aria-expanded="false" aria-controls="control-content">Parameter öffnen +</button></div>
+        <div id="control-content"></div>
+        <div class="control-footer"><button class="primary-button" id="record"><span>◉</span> Struktur aufzeichnen <span>→</span></button><p id="record-note">Speichert die analytische 3D-Struktur als unabhängigen Zustand.</p></div>
+      </aside>
+      <div class="workspace">
+        <section class="volume-panel panel" aria-labelledby="volume-title">
+          <div class="volume-heading"><div><span class="eyebrow" id="volume-kicker">01 / AUFZEICHNUNG</span><h2 id="volume-title">Wo sich Licht begegnet</h2></div><div class="viewer-tools"><button id="toggle-waves" aria-pressed="true" title="Schematische Wellenfronten ein-/ausblenden">Wellen</button><button id="toggle-clip" aria-pressed="false" title="Volumen am Schnitt öffnen">Schnitt öffnen</button><button id="pause" class="icon-button" aria-label="Animation pausieren" title="Animation pausieren">Ⅱ</button><button id="camera-reset" class="icon-button" aria-label="Kamera zurücksetzen" title="Kamera zurücksetzen">⌖</button></div></div>
+          <div id="volume-view" aria-label="Drehbares dreidimensionales Interferenzvolumen" role="img"><div class="webgl-fallback" hidden>Die 3D-Ansicht benötigt WebGL 2. Schnittansicht, Modell und Scans bleiben verfügbar.</div><div class="beam-label label-ref" id="label-ref">REFERENZWELLE<span>kohärent · 532 nm</span></div><div class="beam-label label-obj" id="label-obj">OBJEKTWELLE<span>ebene Wellenfront</span></div><div class="volume-caption"><span class="legend-dot mint"></span><span id="volume-caption">Intensität im Volumen</span></div><div class="rotate-hint">↔ Ziehen zum Drehen <span>·</span> Scrollen zum Zoomen</div><div class="axis-label">x · y · z</div></div>
+          <div class="metrics" id="metrics"></div>
+          <div class="scene-scale">Mikroausschnitt: 6 × 4,5 µm · z-Achse komprimiert · Strahlen schematisch · Animation verlangsamt</div>
+        </section>
+        <div class="analysis-grid">
+          <section class="slice-panel panel"><div class="panel-heading"><div><span class="eyebrow">IM INNEREN</span><h2>Ein Schnitt durchs Licht</h2></div><select id="slice-axis" aria-label="Schnittebene"><option value="y">xz-Ebene</option><option value="z">xy-Ebene</option><option value="x">yz-Ebene</option></select></div><div class="slice-wrap"><canvas id="slice-canvas" aria-label="Berechneter räumlicher Schnitt der Interferenzintensität"></canvas><div class="slice-scale" id="slice-scale">6 µm</div><div class="slice-axis-label" id="slice-axis-label">z ↓</div></div><div class="slice-control"><label for="slice-position">Schnittposition <output id="slice-value">y = 0,00 µm</output></label><input id="slice-position" type="range" min="-1" max="1" step="0.01" value="0" /></div><div class="color-key"><span id="color-min">0</span><span class="color-ramp"></span><span id="color-max">4 |E₀|²</span></div></section>
+          <section class="scan-panel panel"><div class="panel-heading"><div><span class="eyebrow" id="scan-kicker">BRAGG-SELEKTIVITÄT</span><h2 id="scan-title">Ein schmales Fenster für Licht</h2></div><div class="segmented scan-control"><button id="scan-angle" class="active" aria-pressed="true">Winkel</button><button id="scan-wavelength" aria-pressed="false">λ</button></div></div><div class="scan-wrap"><svg id="scan-chart" viewBox="0 0 620 205" aria-label="Beugungseffizienz als Funktion des Rekonstruktionswinkels" role="img"></svg><canvas id="born-canvas" hidden aria-label="Numerisch berechnetes komplexes Austrittsfeld der Born-Rekonstruktion"></canvas><div id="chart-tooltip" hidden></div></div><div class="scan-footer"><div class="chart-legends"><span><i class="mint-line"></i><span id="scan-current">40 µm</span></span><label id="compare-label"><input id="compare" type="checkbox" checked /><i class="gray-line"></i><span id="scan-compare">10 µm · gleiches ν</span></label></div><span id="scan-width"></span></div><p class="panel-note" id="scan-note">Vorschau der aktuellen Struktur. Zum Lesen zuerst aufzeichnen.</p></section>
+        </div>
+        <section class="insight-strip"><span class="insight-number" id="insight-number">01</span><div><h3 id="insight-title">Das Hologramm speichert eine Beziehung.</h3><p id="insight-copy">Hell und dunkel entstehen aus der Phasendifferenz beider Wellen. Die Fringen sind Flächen im ganzen Volumen – keine aufgedruckten Linien.</p></div><button class="text-button" id="next-step">Weiter: aufzeichnen <span>→</span></button></section>
+        <section class="expert-panel panel" id="expert-panel" hidden><div class="panel-heading"><div><span class="eyebrow">PHYSIKER / GLEICHER MODELLZUSTAND</span><h2>Phasenanpassung im k-Raum</h2></div><span class="tiny-label">µm⁻¹ · RAD</span></div><div class="expert-grid"><svg id="k-diagram" viewBox="0 0 400 270" aria-label="Ewald-Diagramm mit einfallendem Wellenvektor, Gittervektor und elastischer Beugungsordnung"></svg><div id="expert-data"></div></div></section>
+      </div>
+    </div>
+    <footer class="page-footer"><span>VOLUMENHOLOGRAMM-LABOR <span class="footer-divider">/</span> LICHT SCHREIBT LICHT IN MATERIE</span><span>Ein idealisiertes Physikexperiment. <button id="footer-method">Näherungen lesen ↗</button></span></footer>
+  </main>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <dialog id="model-dialog" aria-labelledby="model-title"><div class="dialog-heading"><span class="eyebrow">TRANSPARENZ STATT SCHEINPRÄZISION</span><button id="close-dialog" class="icon-button" aria-label="Modelldokumentation schließen">×</button></div><h2 id="model-title">Das Modell hinter dem Licht.</h2><div id="model-documentation"></div></dialog>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
