@@ -1,4 +1,5 @@
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
 import queue
@@ -8,12 +9,13 @@ import sys
 import tempfile
 import threading
 import unittest
+from unittest.mock import patch
 import urllib.error
 import urllib.request
 import zipfile
 
 ROOT = Path(__file__).resolve().parent.parent
-VERSION = json.loads((ROOT / "package.json").read_text())["version"]
+VERSION = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))["version"]
 ARCHIVE = ROOT / "artifacts" / f"volumenhologramm-labor-v{VERSION}.zip"
 
 
@@ -98,6 +100,15 @@ class DistributionTests(unittest.TestCase):
         self.assertEqual(result.returncode, 1)
         self.assertIn("dist/index.html", result.stderr)
         self.assertIn("npm ci && npm run build", result.stderr)
+
+    def test_local_server_needs_no_reverse_dns(self):
+        spec = importlib.util.spec_from_file_location("packaged_launcher", self.package / "start.py")
+        launcher = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(launcher)
+        with patch("socket.getfqdn", side_effect=AssertionError("Lokaler Start darf kein Reverse-DNS benötigen")):
+            with launcher.LocalServer(("127.0.0.1", 0), launcher.AppHandler) as server:
+                self.assertEqual(server.server_name, "127.0.0.1")
+                self.assertGreater(server.server_port, 0)
 
 
 if __name__ == "__main__":

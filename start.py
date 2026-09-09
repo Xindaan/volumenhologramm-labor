@@ -4,9 +4,18 @@ import argparse
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from socketserver import TCPServer
 import sys
 import threading
 import webbrowser
+
+
+class LocalServer(ThreadingHTTPServer):
+    def server_bind(self):
+        # HTTPServer normally reverse-resolves the address during startup.
+        # A loopback-only static server needs no DNS or network-dependent delay.
+        TCPServer.server_bind(self)
+        self.server_name, self.server_port = self.server_address[:2]
 
 
 class AppHandler(SimpleHTTPRequestHandler):
@@ -49,7 +58,7 @@ def main():
         return 1
     handler = partial(AppHandler, directory=str(app_dir))
     try:
-        server = ThreadingHTTPServer(("127.0.0.1", args.port), handler)
+        server = LocalServer(("127.0.0.1", args.port), handler)
     except OSError as error:
         print(f"Der lokale Server konnte nicht starten: {error}\n"
               "Falls der Port belegt ist: python3 start.py --port 5198", file=sys.stderr)

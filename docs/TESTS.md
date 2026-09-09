@@ -63,12 +63,13 @@ Bei der ursprünglichen lokalen Entwicklung erfolgte Pass A durch Quelltext-/Än
 
 ## Weitergabepaket prüfen
 
-Nach `npm run package` führt `npm run test:package` drei zusätzliche Python-Tests aus:
+Nach `npm run package` führt `npm run test:package` vier zusätzliche Python-Tests aus:
 
 | Prüffall | Erwartung |
 |---|---|
 | Paketinhalt und Integrität | Alle internen SHA-256-Prüfsummen sowie die ZIP-Prüfsumme stimmen; Worker und Lizenzhinweis enthalten; keine Entwicklungsabhängigkeiten oder lokalen Protokolle; Unix-Starter ausführbar, Windows-Starter mit CRLF |
 | Entpackter Start und HTTP-Auslieferung | Start aus einem anderen Arbeitsverzeichnis und einem Pfad mit Leerzeichen gelingt; HTML und sämtliche Build-Assets stimmen bytegenau; JavaScript-MIME-Typ passt; Quelldateien und Verzeichnislisten werden nicht ausgeliefert |
 | Unvollständiger Download | Fehlt `dist/index.html`, endet der Starter mit Fehlercode 1 und einem konkreten Hinweis auf Release-ZIP oder Build |
+| Start ohne Namensauflösung | Der ausschließlich lokale Server startet auch dann, wenn eine Reverse-DNS-Abfrage fehlschlagen würde; die Adresse wird direkt verwendet |
 
 Der GitHub-Workflow führt Syntax-, Modell-, Build- und Paketprüfungen unter Linux, macOS und Windows aus. Diese automatischen Tests prüfen den Python-Starter und die Paketdateien; sie ersetzen keine interaktive Browserprüfung oder einen Doppelklicktest der Betriebssystem-Starter.
