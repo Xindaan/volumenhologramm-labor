@@ -1,5 +1,11 @@
 # Installation und Start
 
+## Direkt im Browser – ohne Installation
+
+**[Labor online öffnen](https://xindaan.github.io/volumenhologramm-labor/)** oder direkt das **[3D-Objektlabor](https://xindaan.github.io/volumenhologramm-labor/object.html)** aufrufen. Ein Browser mit WebGL 2 genügt. GitHub Pages liefert die App-Dateien; die Simulation und die Verarbeitung lokal ausgewählter Modelle laufen im Browser. Python und Node.js sind für diesen Weg nicht nötig.
+
+Für die Nutzung ohne Internet das folgende Downloadpaket verwenden.
+
 ## Variante A: fertiges Paket – empfohlen zum Ausprobieren
 
 Benötigt werden ein aktueller Browser mit WebGL 2 und **Python 3.9 oder neuer**. Node.js, npm, ein GitHub-Konto und eine Internetverbindung während der Nutzung sind nicht erforderlich.

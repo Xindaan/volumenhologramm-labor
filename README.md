@@ -1,6 +1,10 @@
 # Volumenhologramm-Labor – Licht schreibt Licht in Materie
 
-Lokale interaktive Browser-Anwendung für Aufzeichnung, Volumengitter und Bragg-selektive Rekonstruktion. **Neu in 1.1: vom räumlichen Brandenburger Tor über das kohärente Objektfeld zum fokussierbaren Hologrammbild.** Keine externe API, keine Cloud, keine nachgeladenen Schriftarten oder Medien. Modell und numerische Rekonstruktion laufen im Browser; die Born-Rechnung in einem Web Worker.
+Interaktive Browser-Anwendung für Aufzeichnung, Volumengitter und Bragg-selektive Rekonstruktion. **Neu in 1.1: vom räumlichen Brandenburger Tor über das kohärente Objektfeld zum fokussierbaren Hologrammbild.** Modell und numerische Rekonstruktion laufen vollständig im Browser; die Born-Rechnung in einem Web Worker. Keine externe Rechen-API, keine nachgeladenen Schriftarten oder Medien.
+
+**[Direkt online ausprobieren](https://xindaan.github.io/volumenhologramm-labor/) · [Zum 3D-Objektlabor](https://xindaan.github.io/volumenhologramm-labor/object.html)**
+
+Die Onlineversion benötigt keine Installation. GitHub Pages liefert die statischen App-Dateien; geladene Objektmodelle und die Berechnung bleiben im Browser. Für die Nutzung ohne Internet gibt es weiterhin das lokale Downloadpaket.
 
 ![Interferenzstruktur im transparenten Volumen](screenshots/01-aufzeichnung.png)
 
@@ -39,6 +43,8 @@ npm run test:package # entpacktes Paket, Startserver, Assets und Prüfsummen pr�
 ```
 
 Die fertige `dist/`-Anwendung kann auch von einem anderen lokalen HTTP-Server ausgeliefert werden. ES-Module und Worker benötigen HTTP; `file://` ist kein unterstützter Startweg.
+
+GitHub Pages veröffentlicht den geprüften `dist/`-Build nach erfolgreichen Prüfungen auf Linux, macOS und Windows. Der Workflow läuft bei Änderungen an `main`; Pull Requests veröffentlichen keine Website. Relative Asset-Pfade erlauben denselben Build lokal und unter `/volumenhologramm-labor/`.
 
 ## Ein Versuch in zwei Minuten
 

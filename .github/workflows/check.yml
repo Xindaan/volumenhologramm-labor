@@ -1,4 +1,4 @@
-name: Modell und Weitergabepaket
+name: Modell, Weitergabepaket und GitHub Pages
 
 on:
   push:
@@ -32,3 +32,31 @@ jobs:
       - run: npm run build
       - run: python scripts/package_release.py
       - run: python -m unittest discover -s tests -p "test_*.py" -v
+      - name: Geprüften Browser-Build für Pages bereitstellen
+        if: runner.os == 'Linux' && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  deploy:
+    name: GitHub Pages veröffentlichen
+    needs: verify
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Pages-Konfiguration laden
+        uses: actions/configure-pages@v6
+      - name: Geprüften Build veröffentlichen
+        id: deployment
+        uses: actions/deploy-pages@v5
